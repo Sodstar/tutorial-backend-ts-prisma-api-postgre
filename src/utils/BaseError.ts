@@ -6,3 +6,5 @@ export class BaseError extends Error {
       this.statusCode = statusCode;
     }
   }
+
+  

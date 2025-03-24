@@ -4,7 +4,7 @@ import cors from "cors";
 import authorRouter from "./routes/author.router";
 import bookRouter from "./routes/book.router";
 import postRouter from "./routes/post.router";
-
+import paymentRouter from "./routes/payment.router"
 const app = express();
 const port = process.env.PORT || 8080;
 
@@ -15,6 +15,7 @@ app.use(cors());
 // Routes
 app.use("/authors", authorRouter);
 app.use("/books", bookRouter);
+app.use("/payment", paymentRouter);
 app.use("/posts", postRouter); // Fixed "/post" -> "/posts" for consistency
 
 app.get("/ping", (req, res) => {
