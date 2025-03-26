@@ -25,6 +25,7 @@ export const getBookById = async (req: Request, res: Response) => {
 
   try {
     const validation = bookIdSchema.safeParse(req.params);
+    console.log(validation.error)
     if (!validation.success) {
       return res.status(400).json({ message: validation.error.errors });
     }

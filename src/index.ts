@@ -18,6 +18,9 @@ app.use("/books", bookRouter);
 app.use("/payment", paymentRouter);
 app.use("/posts", postRouter); // Fixed "/post" -> "/posts" for consistency
 
+
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.get("/ping", (req, res) => {
   res.status(200).json({ message: "pong" });
 });
