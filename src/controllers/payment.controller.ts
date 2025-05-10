@@ -8,6 +8,7 @@ import { checkQpayInvoice, createQpayInvoice } from "../services/qpayService";
 import { UserRole } from "../types/auth";
 import { baseURL } from "../config/env";
 import { getUserInfo } from "../utils/user";
+import logger from "../utils/log";
 
 export const createInvoice = asyncHandler(async (req, res) => {
 
@@ -23,14 +24,14 @@ export const createInvoice = asyncHandler(async (req, res) => {
     const code = getRandomCode(6);
 
     //   const callback_url = `${baseURL}/api/v1/invoice/approve/${userRole}/${id}/${code}`;
-    const callback_url = `${process.env.BASE_URL}/payment/approve/${id}`
+    const callback_url = `${baseURL}/payment/approve/${id}`
     const qpayInvoice = await createQpayInvoice({
         amount,
         invoice_description: description,
         callback_url,
         sender_invoice_no: getRandomCode(6),
     });
-
+    logger.info(qpayInvoice);
     res.status(200).json({
         success: true,
         data: qpayInvoice,
@@ -41,7 +42,7 @@ export const checkInvoice = asyncHandler(async (req, res) => {
     const { id, invoice_id } = req.params;
 
     // if (!invoice_id) throw new BaseError(id + " ID-тай invoice байхгүй", 404);
-    if (!id) throw new BaseError(id + " ID-тай invoice байхгүй", 404);
+    if (!id) throw new BaseError(id + " ID-тай invoice байхгүй!", 404);
     const qpayResponse = await checkQpayInvoice(id);
 
     res.status(200).json({

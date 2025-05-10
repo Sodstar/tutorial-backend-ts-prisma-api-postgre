@@ -25,6 +25,7 @@ export const getBookById = async (req: Request, res: Response) => {
 
   try {
     const validation = bookIdSchema.safeParse(req.params);
+    console.log(validation.error)
     if (!validation.success) {
       return res.status(400).json({ message: validation.error.errors });
     }
@@ -34,7 +35,7 @@ export const getBookById = async (req: Request, res: Response) => {
     }
     res.status(200).json({ data: book });
   } catch (error) {
-    console.error("Error fetching book:", error);
+    console.error("Error fetching book:", error); 
     res.status(500).json({ message: "Server Error" });
   }
 }
